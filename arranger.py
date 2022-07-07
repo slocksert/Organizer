@@ -107,5 +107,7 @@ class Arranger:
                     new_file = f'{file_path[pos_file:]}'
                     if file_path:
                         os.rename(file_path, f'{self.home}/Music/{new_file}')
+        
+        print('Your files are organized now!')
 
-dashs = '-' * 30
+dashs = '-' * 27
