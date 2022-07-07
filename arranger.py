@@ -1,7 +1,7 @@
-import shutil
+import json
 import os
+import shutil
 from pathlib import Path
-
 
 class Arranger:
     
@@ -12,6 +12,20 @@ class Arranger:
         self.pictures = ['*.jpeg', '*.gif', '*.png', '*.tiff', '*.psd', '*.eps', '*.ai', '*.indd', '*.raw']
         self.videos = ['*.ts', '*.mp4','*.mov', '*.wmv', '*.avi', '*.avchd', '*.flv', '*.f4v', '*.swf', '*.mkv', '*.webm', '*.mpeg-2']
         self.music = ['*.mp3', '*.aac', '*.flac', '*.alac', '*.wav', '*.aiff', '*.dsd', '*.pcm']    
+        self.config()
+        
+    def config(self):
+        if not self.home == '':
+            return
+        
+        current_path = os.path.dirname(__file__)
+        config_path = str(Path.home()) + '/.config/arranger'
+        Path(config_path).mkdir(exist_ok=True, parents=True)
+
+        if not os.path.isfile(config_path + '/config.json'):
+            shutil.copy(current_path + '/config.json', config_path + '/config.json')
+        json_file = open(config_path + '/config.json')
+        self.home = json.load(json_file)['path']
 
     def verify(self):
         
