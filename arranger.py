@@ -24,8 +24,12 @@ class Arranger:
 
         if not os.path.isfile(config_path + '/config.json'):
             shutil.copy(current_path + '/config.json', config_path + '/config.json')
-        json_file = open(config_path + '/config.json')
-        self.home = json.load(json_file)['path']
+        dictionary = {"path":str(Path.home())}
+        with open('config.json', 'w') as conf:
+            json.dump(dictionary, conf)
+        with open(config_path + '/config.json', 'w') as outfile:
+            json.dump(dictionary, outfile)
+        self.home = Path.home()
 
     def verify(self):
         
@@ -36,7 +40,7 @@ class Arranger:
                 else:
                     os.mkdir(f'{self.home}/{directories}')
         else:
-            print(f'"{self.home}" directory does not exist.')
+            quit(f'"{self.home}" directory does not exist.')
 
     def move_files_documents(self):
         for directories in self.lst_of_dir:
