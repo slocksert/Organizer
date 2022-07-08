@@ -10,7 +10,7 @@
 Clone the repository
 
 ```bash
-$ git clone https://github.com/slocksert/arranger.git
+$ git clone https://github.com/slocksert/Organizer.git
 ```
 
 ## Usage
