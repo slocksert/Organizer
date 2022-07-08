@@ -5,6 +5,7 @@
 - The code tries to find several file formats 
 - After finding them, it puts the files in the folders that were created
 - And done your files are now organized!
+- Tip: You can use cron and automate the process
 
 ## Install
 Clone the repository
@@ -16,7 +17,7 @@ $ git clone https://github.com/slocksert/Organizer.git
 ## Usage
 ### Change to the directory
 ```bash
-$ cd arranger/ 
+$ cd Organizer/ 
 ```
 ### Run it
 ```python
