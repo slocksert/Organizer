@@ -14,9 +14,17 @@ $ git clone https://github.com/slocksert/arranger.git
 ```
 
 ## Usage
-
+### Change to the directory
 ```bash
-$ python3 main.py
+$ cd arranger/ 
+```
+### Run it
+```python
+$ python3 main.py 
+```
+### If you want to define where is your home
+```python
+$ python3 main.py - i 
 ```
 
 ### Now your home should look like this
