@@ -28,4 +28,4 @@ $ python3 main.py - i
 ```
 
 ### Now your home should look like this
-<h1 align="center"><img src="https://raw.githubusercontent.com/slocksert/arranger_imgs/main/image_2022-07-07_183408739.png" height="180"></h1>
+<h1 align="center"><img src="https://raw.githubusercontent.com/slocksert/arranger_imgs/main/pastas.png" height="180"></h1>
