@@ -8,7 +8,7 @@ class Arranger:
     def __init__(self, home):
         self.lst_of_dir = ['Downloads', 'Pictures', 'Videos', 'Documents', 'Music', 'Desktop']
         self.home = home
-        self.documents = ['*.txt', '*.doc', '*.cnf', '*.conf', '*.cfg', '*.log', '*.asc', '*.csv', '*.json', '*.html', '*.epub', '*.ppt', '*.pptx', '*.pdf']
+        self.documents = ['*.md','*.py','*.txt', '*.doc', '*.cnf', '*.conf', '*.cfg', '*.log', '*.asc', '*.csv', '*.json', '*.html', '*.epub', '*.ppt', '*.pptx', '*.pdf']
         self.pictures = ['*.jpg','*.jpeg', '*.gif', '*.png', '*.tiff', '*.psd', '*.eps', '*.ai', '*.indd', '*.raw']
         self.videos = ['*.ts', '*.mp4','*.mov', '*.wmv', '*.avi', '*.avchd', '*.flv', '*.f4v', '*.swf', '*.mkv', '*.webm', '*.mpeg-2']
         self.music = ['*.mp3', '*.aac', '*.flac', '*.alac', '*.wav', '*.aiff', '*.dsd', '*.pcm']
@@ -33,7 +33,7 @@ class Arranger:
         self.home = Path.home()
 
     def verify(self):
-        
+
         if os.path.exists(self.home):
             for directories in self.lst_of_dir:
                 if os.path.exists(f'{self.home}/{directories}'):
