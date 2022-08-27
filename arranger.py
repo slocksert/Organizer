@@ -1,18 +1,18 @@
 import json
 import os
+import pathlib
 import shutil
 from pathlib import Path
 
 class Arranger:
     
     def __init__(self, home):
-        self.lst_of_dir = ['Downloads', 'Pictures', 'Videos', 'Documents', 'Music', 'Desktop']
         self.home = home
-        self.documents = ['*.md','*.py','*.txt', '*.doc', '*.cnf', '*.conf', '*.cfg', '*.log', '*.asc', '*.csv', '*.json', '*.html', '*.epub', '*.ppt', '*.pptx', '*.pdf']
-        self.pictures = ['*.jpg','*.jpeg', '*.gif', '*.png', '*.tiff', '*.psd', '*.eps', '*.ai', '*.indd', '*.raw']
-        self.videos = ['*.ts', '*.mp4','*.mov', '*.wmv', '*.avi', '*.avchd', '*.flv', '*.f4v', '*.swf', '*.mkv', '*.webm', '*.mpeg-2']
-        self.music = ['*.mp3', '*.aac', '*.flac', '*.alac', '*.wav', '*.aiff', '*.dsd', '*.pcm']
-        self.downloads = ['*.7z', '*.xz', '*.zip']    
+        self.dir_dict = {'Downloads':['.7z', '.xz', '.zip', '.rar'], 
+        'Pictures':['.jpg','.jpeg', '.gif', '.png', '.tiff', '.psd', '.eps', '.ai', '.indd', '.raw'], 
+        'Videos':['.ts', '.mp4','.mov', '.wmv', '.avi', '.avchd', '.flv', '.f4v', '.swf', '.mkv', '.webm', '.mpeg-2'], 
+        'Documents':['.txt','.bak','.xls','.xlsx','.md','.py','.txt', '.doc', '.cnf', '.conf', '.cfg', '.log', '.asc', '.csv', '.json', '.html', '.epub', '.ppt', '.pptx', '.pdf'], 
+        'Music':['.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm']}   
         self.config()
         
     def config(self):
@@ -33,9 +33,8 @@ class Arranger:
         self.home = Path.home()
 
     def verify(self):
-
         if os.path.exists(self.home):
-            for directories in self.lst_of_dir:
+            for directories in self.dir_dict.keys():
                 if os.path.exists(f'{self.home}/{directories}'):
                     continue
                 else:
@@ -43,96 +42,41 @@ class Arranger:
         else:
             quit(f'"{self.home}" directory does not exist.')
 
-    def move_files_downloads(self):
-        for directories in self.lst_of_dir:
-            for formats in self.downloads:
-                for p in Path(f'{self.home}/{directories}').glob(formats):
-                    file_path = str(p)
-                    pos_bar = file_path.split('/')
-                    new_file = pos_bar[4]
-                    if file_path:
-                        shutil.move(file_path, f'{self.home}/Downloads/{new_file}')
+    def get_files(self):
+        self.lst_of_paths = []
+        self.lst_of_paths_home = []
+        path_to_home = f'{self.home}'
 
-        for formats in self.downloads:
-            for p in Path(f'{self.home}').glob(formats):
-                file_path = str(p)
-                pos_bar = file_path.split('/')
-                new_file = pos_bar[3]
-                if file_path:
-                    shutil.move(file_path, f'{self.home}/Downloads/{new_file}')
-
-    def move_files_documents(self):
-        for directories in self.lst_of_dir:
-            for formats in self.documents:
-                for p in Path(f'{self.home}/{directories}').glob(formats):
-                    file_path = str(p)
-                    pos_bar = file_path.split('/')
-                    new_file = pos_bar[4]
-                    if file_path:
-                        shutil.move(file_path, f'{self.home}/Documents/{new_file}')
-
-        for formats in self.documents:
-            for p in Path(f'{self.home}').glob(formats):
-                file_path = str(p)
-                pos_bar = file_path.split('/')
-                new_file = pos_bar[3]
-                if file_path:
-                    shutil.move(file_path, f'{self.home}/Documents/{new_file}')
-
-    def move_files_pictures(self):
-        for directories in self.lst_of_dir:
-            for formats in self.pictures:
-                for p in Path(f'{self.home}/{directories}').glob(formats):
-                    file_path = str(p)
-                    pos_bar = file_path.split('/')
-                    new_file = pos_bar[4]
-                    if file_path:
-                        shutil.move(file_path, f'{self.home}/Pictures/{new_file}')
+        for directories in self.dir_dict.keys():
+            path_to_file = f'{self.home}/{directories}'    
+            for filename in os.listdir(path_to_file):
+                self.f = os.path.join(path_to_file, filename)             
+                if os.path.isfile(self.f):
+                    self.lst_of_paths.append(self.f)
         
-        for formats in self.pictures:
-            for p in Path(f'{self.home}').glob(formats):
-                file_path = str(p)
-                pos_bar = file_path.split('/')
-                new_file = pos_bar[3]
-                if file_path:
-                    shutil.move(file_path, f'{self.home}/Pictures/{new_file}')
-                    
-    def move_files_videos(self):
-        for directories in self.lst_of_dir:
-            for formats in self.videos:
-                for p in Path(f'{self.home}/{directories}').glob(formats):
-                    file_path = str(p)
-                    pos_bar = file_path.split('/')
-                    new_file = pos_bar[4]
-                    if file_path:
-                        shutil.move(file_path, f'{self.home}/Videos/{new_file}')
-        
-        for formats in self.videos:
-            for p in Path(f'{self.home}').glob(formats):
-                file_path = str(p)
-                pos_bar = file_path.split('/')
-                new_file = pos_bar[3]
-                if file_path:
-                    shutil.move(file_path, f'{self.home}/Videos/{new_file}')
+        for filename in os.listdir(path_to_home):
+            self.f_home = os.path.join(path_to_home, filename)
+            if os.path.isfile(self.f_home):
+                self.lst_of_paths_home.append(self.f_home)
 
-    def move_files_music(self):
-        for directories in self.lst_of_dir:
-            for formats in self.music:
-                for p in Path(f'{self.home}/{directories}').glob(formats):
-                    file_path = str(p)
-                    pos_bar = file_path.split('/')
-                    new_file = pos_bar[4]
-                    if file_path:
-                        shutil.move(file_path, f'{self.home}/Music/{new_file}')
-        
-        for formats in self.music:
-            for p in Path(f'{self.home}').glob(formats):
-                file_path = str(p)
-                pos_bar = file_path.split('/')
-                new_file = pos_bar[3]
-                if file_path:
-                    shutil.move(file_path, f'{self.home}/Music/{new_file}')
-        
-        print('Your files are organized now!')
+    def move(self):
+        for file_path in self.lst_of_paths:
+            for directories in self.dir_dict.keys():
+                for formats in self.dir_dict[f'{directories}']:
+                    current_file = file_path
+                    current_name = pathlib.Path(current_file).name
+                    current_directory = directories
+                    if file_path.endswith(formats):
+                        shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
+                    else:
+                        continue
 
-dashs = '-' * 27
+    def move_files_from_home(self):
+        for file_path in self.lst_of_paths_home:
+            for directories in self.dir_dict.keys():
+                for formats in self.dir_dict[f'{directories}']:
+                    current_file = file_path
+                    current_name = pathlib.Path(current_file).name
+                    current_directory = directories
+                    if file_path.endswith(formats):
+                        shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
