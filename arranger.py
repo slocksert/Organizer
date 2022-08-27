@@ -39,6 +39,11 @@ class Arranger:
                     continue
                 else:
                     os.mkdir(f'{self.home}/{directories}')
+                
+                if os.path.exists(f'{self.home}/Etc'):
+                    continue
+                else:
+                    os.mkdir(f'{self.home}/Etc')
         else:
             quit(f'"{self.home}" directory does not exist.')
 
@@ -69,7 +74,7 @@ class Arranger:
                     if file_path.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
                     else:
-                        continue
+                        shutil.move(current_file, f'{self.home}/{current_directory}/etc')
 
     def move_files_from_home(self):
         for file_path in self.lst_of_paths_home:
@@ -80,3 +85,5 @@ class Arranger:
                     current_directory = directories
                     if file_path.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
+                    else:
+                        shutil.move(current_file, f'{self.home}/{current_directory}/etc')

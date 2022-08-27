@@ -10,6 +10,7 @@ def main():
     dashs = '-' * 27
     current_path = os.path.dirname(__file__)
     config_path = str(Path.home()) + '/.config/arranger'
+    Path(config_path).mkdir(exist_ok=True, parents=True)
 
     if len(sys.argv) > 1:
         parameter = sys.argv[1]
