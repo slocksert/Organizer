@@ -17,10 +17,10 @@ def main():
             home = input(f'{dashs}\nEnter your home directory:\n{dashs}\n->')
             dictionary = {"path":str(home)}
             if os.path.exists(home):
-                with open('config.json', 'w') as conf:
-                    json.dump(dictionary, conf)
                 if not os.path.isfile(config_path + '/config.json'):
                     shutil.copy(current_path + '/config.json', config_path + '/config.json')
+                with open('config.json', 'w') as conf:
+                    json.dump(dictionary, conf)
                 with open(config_path + '/config.json', 'w') as outfile:
                     json.dump(dictionary, outfile)
         else:
