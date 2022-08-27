@@ -12,7 +12,8 @@ class Arranger:
         'Pictures':['.jpg','.jpeg', '.gif', '.png', '.tiff', '.psd', '.eps', '.ai', '.indd', '.raw'], 
         'Videos':['.ts', '.mp4','.mov', '.wmv', '.avi', '.avchd', '.flv', '.f4v', '.swf', '.mkv', '.webm', '.mpeg-2'], 
         'Documents':['.txt','.bak','.xls','.xlsx','.md','.py','.txt', '.doc', '.cnf', '.conf', '.cfg', '.log', '.asc', '.csv', '.json', '.html', '.epub', '.ppt', '.pptx', '.pdf'], 
-        'Music':['.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm']}   
+        'Music':['.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm'],
+        'Etc':[]}   
         self.config()
         
     def config(self):
@@ -39,11 +40,6 @@ class Arranger:
                     continue
                 else:
                     os.mkdir(f'{self.home}/{directories}')
-                
-                if os.path.exists(f'{self.home}/Etc'):
-                    continue
-                else:
-                    os.mkdir(f'{self.home}/Etc')
         else:
             quit(f'"{self.home}" directory does not exist.')
 
