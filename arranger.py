@@ -8,12 +8,12 @@ class Arranger:
     
     def __init__(self, home):
         self.home = home
-        self.dir_dict = {'Downloads':['.7z', '.xz', '.zip', '.rar'], 
+        self.dir_dict = {'Downloads':['.torrent','.taz','.tar','.lz','.iso','.gz','.7z', '.xz', '.zip', '.rar', '.deb', '.rpm','.exe'], 
         'Pictures':['.jpg','.jpeg', '.gif', '.png', '.tiff', '.psd', '.eps', '.ai', '.indd', '.raw'], 
-        'Videos':['.ts', '.mp4','.mov', '.wmv', '.avi', '.avchd', '.flv', '.f4v', '.swf', '.mkv', '.webm', '.mpeg-2'], 
-        'Documents':['.txt','.bak','.xls','.xlsx','.md','.py','.txt', '.doc', '.cnf', '.conf', '.cfg', '.log', '.asc', '.csv', '.json', '.html', '.epub', '.ppt', '.pptx', '.pdf'], 
-        'Music':['.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm'],
-        'Etc':[]}   
+        'Videos':['.wmv','.ogv','.ts', '.mp4','.mov', '.wmv', '.avi', '.avchd', '.flv', '.f4v', '.swf', '.mkv', '.webm', '.mpeg-2'], 
+        'Documents':['.yml','.yaml','.url','.sh','.rb','.md','.m','.js','.go','.cfg','.email','.css','.crdownload','.bak','.odt','.ods','.txt','.bak','.xls','.xlsx','.md','.py','.txt', '.doc', '.cnf', '.conf', '.cfg', '.log', '.asc', '.csv', '.json', '.html', '.epub', '.ppt', '.pptx', '.pdf','.htm', '.docx'], 
+        'Music':['.flp','.flv','.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm'],
+        'Etc':['.sql', '.pacman', 'ovpn','.bin','.blend','.bat','.db','.elf','.etl','.godot','.java','.jar','.ldb','.vbox']}   
         self.config()
         
     def config(self):
@@ -67,10 +67,10 @@ class Arranger:
                     current_file = file_path
                     current_name = pathlib.Path(current_file).name
                     current_directory = directories
-                    if file_path.endswith(formats):
+                    if current_file.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
                     else:
-                        shutil.move(current_file, f'{self.home}/{current_directory}/etc')
+                        continue
 
     def move_files_from_home(self):
         for file_path in self.lst_of_paths_home:
@@ -79,7 +79,7 @@ class Arranger:
                     current_file = file_path
                     current_name = pathlib.Path(current_file).name
                     current_directory = directories
-                    if file_path.endswith(formats):
+                    if current_file.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
                     else:
-                        shutil.move(current_file, f'{self.home}/{current_directory}/etc')
+                        continue

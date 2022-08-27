@@ -32,6 +32,7 @@ def main():
     arranger.get_files()
     arranger.move()
     arranger.move_files_from_home()
+    print('Your files are now organized!')
 
 if __name__ == '__main__':
     main()
