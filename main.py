@@ -12,7 +12,7 @@ def get_home_directory():
 
 def main(home_directory=None):
     home = get_home_directory()
-    config_path = str(Path.home()) + '/.config/arranger'
+    config_path = os.path.join(Path.home(), '.config', 'arranger')
     Path(config_path).mkdir(exist_ok=True, parents=True)
 
     if home:

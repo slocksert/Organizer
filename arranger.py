@@ -1,6 +1,5 @@
 import json
 import os
-import pathlib
 import shutil
 from pathlib import Path
 from datetime import datetime
