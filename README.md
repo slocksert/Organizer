@@ -21,11 +21,7 @@ $ cd Organizer/
 ```
 ### Run it
 ```python
-$ python3 main.py 
-```
-### If you want to define where is your home
-```python
-$ python3 main.py - i 
+$ python3 gui.py 
 ```
 
 ### Now your home should look like this

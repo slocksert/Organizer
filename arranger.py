@@ -3,29 +3,27 @@ import os
 import pathlib
 import shutil
 from pathlib import Path
+from datetime import datetime
+from file_types import FILE_TYPES
 
 class Arranger:
     
     def __init__(self, home):
         self.home = home
-        self.dir_dict = {'Downloads':['.torrent','.taz','.tar','.lz','.iso','.gz','.7z', '.xz', '.zip', '.rar', '.deb', '.rpm','.exe'], 
-        'Pictures':['.jpg','.jpeg', '.gif', '.png', '.tiff', '.psd', '.eps', '.ai', '.indd', '.raw'], 
-        'Videos':['.wmv','.ogv','.ts', '.mp4','.mov', '.wmv', '.avi', '.avchd', '.flv', '.f4v', '.swf', '.mkv', '.webm', '.mpeg-2'], 
-        'Documents':['.yml','.yaml','.url','.sh','.rb','.md','.m','.js','.go','.cfg','.email','.css','.crdownload','.bak','.odt','.ods','.txt','.bak','.xls','.xlsx','.md','.py','.txt', '.doc', '.cnf', '.conf', '.cfg', '.log', '.asc', '.csv', '.json', '.html', '.epub', '.ppt', '.pptx', '.pdf','.htm', '.docx'], 
-        'Music':['.flp','.flv','.mp3', '.aac', '.flac', '.alac', '.wav', '.aiff', '.dsd', '.pcm'],
-        'Etc':['.sql', '.pacman', 'ovpn','.bin','.blend','.bat','.db','.elf','.etl','.godot','.java','.jar','.ldb','.vbox']}   
+        self.dir_dict = FILE_TYPES  
         self.config()
-        
+        self.logs = []
+
     def config(self):
         if not self.home == '':
             return
         
-        current_path = os.path.dirname(__file__)
+        self.current_path = os.path.dirname(__file__)
         config_path = str(Path.home()) + '/.config/arranger'
         Path(config_path).mkdir(exist_ok=True, parents=True)
 
         if not os.path.isfile(config_path + '/config.json'):
-            shutil.copy(current_path + '/config.json', config_path + '/config.json')
+            shutil.copy(self.current_path + '/config.json', config_path + '/config.json')
         dictionary = {"path":str(Path.home())}
         with open('config.json', 'w') as conf:
             json.dump(dictionary, conf)
@@ -69,6 +67,7 @@ class Arranger:
                     current_directory = directories
                     if current_file.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
+                        self.logs.append(f'Moved {current_file} to {self.home}/{current_directory}/{current_name}')
                     else:
                         continue
 
@@ -81,5 +80,13 @@ class Arranger:
                     current_directory = directories
                     if current_file.endswith(formats):
                         shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
+                        self.logs.append(f'Moved {current_file} to {self.home}/{current_directory}/{current_name}')
                     else:
                         continue
+    
+    def write_logs_to_file(self):
+        log_file_path = os.path.join(self.current_path, 'arranger_logs.txt')
+        with open(log_file_path, 'a') as log_file:
+            log_file.write(f'Arranger Logs - {datetime.now()}:\n')
+            for log in self.logs:
+                log_file.write(log + '\n')
