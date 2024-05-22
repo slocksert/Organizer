@@ -73,16 +73,17 @@ class Arranger:
 
     def move_files_from_home(self):
         for file_path in self.lst_of_paths_home:
+            if not os.path.exists(file_path):
+                continue
             for directories in self.dir_dict.keys():
-                for formats in self.dir_dict[f'{directories}']:
+                for formats in self.dir_dict[directories]:
                     current_file = file_path
-                    current_name = pathlib.Path(current_file).name
+                    current_name = os.path.basename(current_file)
                     current_directory = directories
                     if current_file.endswith(formats):
-                        shutil.move(current_file, f'{self.home}/{current_directory}/{current_name}')
-                        self.logs.append(f'Moved {current_file} to {self.home}/{current_directory}/{current_name}')
-                    else:
-                        continue
+                        destination_path = os.path.join(self.home, current_directory, current_name)
+                        if not os.path.exists(destination_path):
+                            os.rename(current_file, destination_path)
     
     def write_logs_to_file(self):
         log_file_path = os.path.join(self.current_path, 'arranger_logs.txt')
